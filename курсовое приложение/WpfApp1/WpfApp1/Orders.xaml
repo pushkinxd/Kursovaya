@@ -1,0 +1,32 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        xmlns:model="clr-namespace:WpfApp1.model" x:Class="WpfApp1.Order"
+        mc:Ignorable="d"
+        Title="Order" Height="450" Width="800" Loaded="Window_Loaded">
+    <Window.Resources>
+        <CollectionViewSource x:Key="ordersViewSource" d:DesignSource="{d:DesignInstance {x:Type model:Orders}, CreateList=True}"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource ordersViewSource}">
+
+        <DataGrid x:Name="ordersDataGrid" RowDetailsVisibilityMode="VisibleWhenSelected" Margin="10,24,173,195" ItemsSource="{Binding}" EnableRowVirtualization="True" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="costColumn" Width="SizeToHeader" Header="Cost" Binding="{Binding Cost}"/>
+                <DataGridTemplateColumn x:Name="dateOrderColumn" Width="SizeToHeader" Header="Date Order">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding DateOrder, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn x:Name="iDOrderColumn" Width="SizeToHeader" Header="IDOrder" Binding="{Binding IDOrder}"/>
+                <DataGridTextColumn x:Name="iDUserColumn" Width="SizeToHeader" Header="IDUser" Binding="{Binding IDUser}"/>
+                <DataGridTextColumn x:Name="periodColumn" Width="SizeToHeader" Header="Period" Binding="{Binding Period}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</Window>
